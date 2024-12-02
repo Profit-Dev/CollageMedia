@@ -19,6 +19,9 @@ dependencies {
     implementation(compose.desktop.currentOs)
 
     implementation("com.mohamedrejeb.calf:calf-file-picker:0.6.1")
+
+    implementation(compose.components.resources)
+
 }
 
 compose.desktop {
