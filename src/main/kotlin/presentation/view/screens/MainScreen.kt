@@ -8,7 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import presentation.view.components.SelectButton
+import presentation.view.components.FilePickerButton
 import presentation.view.themes.mainWallpaperColor
 import presentation.view.themes.whiteColor
 
@@ -24,7 +24,7 @@ fun MainScreen() {
 
         Text("COLLAGE MEDIA", fontSize = 100.sp, color = whiteColor)
         Spacer(Modifier.height(31.dp))
-        SelectButton { }
+        FilePickerButton()
         Spacer(Modifier.height(31.dp))
         Text("or drop here", fontSize = 20.sp, color = whiteColor)
 
