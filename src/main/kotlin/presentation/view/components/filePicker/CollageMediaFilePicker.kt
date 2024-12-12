@@ -2,16 +2,16 @@ package presentation.view.components.filePicker
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -29,6 +29,7 @@ fun CollageMediaFilePicker(modifier: Modifier = Modifier) {
             val rowSpacing: Dp = 185.dp
 
             Row(
+                modifier = Modifier.padding(horizontal = 25.dp),
                 horizontalArrangement = Arrangement.spacedBy(rowSpacing)
             ) {
                 Text(
@@ -55,10 +56,13 @@ fun CollageMediaFilePicker(modifier: Modifier = Modifier) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
+                    .clip(RoundedCornerShape(12.dp))
                     .background(color = secondaryColor)
+                    .padding(10.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp),
             ) {
                 items(placeholderList) { i ->
-                    CollageMediaFilePickerRow(i)
+                    CollageMediaFilePickerRow(i, rowSpacing)
                 }
             }
         }
