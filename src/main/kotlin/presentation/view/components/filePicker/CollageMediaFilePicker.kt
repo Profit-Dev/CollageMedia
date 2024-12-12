@@ -12,7 +12,6 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -49,15 +48,17 @@ fun CollageMediaFilePicker(modifier: Modifier = Modifier) {
 
             Divider(
                 color = secondaryColor,
-                thickness = 2.dp,
+                thickness = 1.dp,
             )
 
-            val placeholderList = (1..100).toList()
+            val placeholderList = (100..1000).toList()
             LazyColumn(
-                modifier = Modifier.fillMaxSize().background(color = Color.White)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(color = secondaryColor)
             ) {
                 items(placeholderList) { i ->
-                    Row { Text("$i") }
+                    CollageMediaFilePickerRow(i)
                 }
             }
         }

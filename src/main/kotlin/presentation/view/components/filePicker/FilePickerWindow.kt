@@ -40,7 +40,7 @@ fun FilePickerWindow() {
 
             Divider(
                 color = secondaryColor,
-                thickness = 2.dp,
+                thickness = 1.dp,
             )
 
             CollageMediaFilePicker(
