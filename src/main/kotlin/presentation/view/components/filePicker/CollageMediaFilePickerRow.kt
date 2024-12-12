@@ -11,28 +11,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import models.files.FilePickerFile
 import presentation.view.themes.collageLightBlueColor
 
 @Composable
-fun CollageMediaFilePickerRow(item: Int, rowSpacing: Dp) {
+fun CollageMediaFilePickerRow(item: FilePickerFile, rowSpacing: Dp) {
     Row(
         Modifier
             .clip(RoundedCornerShape(16.dp))
             .background(collageLightBlueColor)
-            .fillMaxWidth()
-            .height(50.dp)
-            .padding(horizontal = 25.dp)
-        ,
+            .fillMaxWidth().height(50.dp)
+            .padding(horizontal = 25.dp),
         horizontalArrangement = Arrangement.spacedBy(rowSpacing),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text("$item")
-        Text("$item")
+        Text(item.name)
+        Text("${item.size} B")
     }
 }
 
 @Preview
 @Composable
 fun CollageMediaFilePickerRowPreview() {
-    CollageMediaFilePickerRow(5, 185.dp)
+    CollageMediaFilePickerRow(
+        item = FilePickerFile("File name", 8), rowSpacing = 185.dp
+    )
 }
