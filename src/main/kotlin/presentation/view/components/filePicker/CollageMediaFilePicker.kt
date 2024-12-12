@@ -2,13 +2,14 @@ package presentation.view.components.filePicker
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
@@ -18,9 +19,13 @@ import androidx.compose.ui.unit.sp
 import models.files.FilePickerFile
 import presentation.view.themes.CollageMediaTheme
 import presentation.view.themes.secondaryColor
+import java.io.File
 
 @Composable
-fun CollageMediaFilePicker(modifier: Modifier = Modifier) {
+fun CollageMediaFilePicker(
+    modifier: Modifier = Modifier,
+    onFileSelected: ((File) -> Unit)? = null,
+) {
     CollageMediaTheme {
         Column(
             modifier = modifier.fillMaxSize(),
@@ -52,7 +57,9 @@ fun CollageMediaFilePicker(modifier: Modifier = Modifier) {
                 thickness = 1.dp,
             )
 
-            val placeholderList = (100..1000).toList()
+            var currentDirectory by remember { mutableStateOf(File(System.getProperty("user.home"))) }
+            var files by remember { mutableStateOf(currentDirectory.listFiles()?.toList() ?: emptyList()) }
+
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
@@ -61,11 +68,18 @@ fun CollageMediaFilePicker(modifier: Modifier = Modifier) {
                     .padding(10.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp),
             ) {
-                items(placeholderList) { i ->
-                    CollageMediaFilePickerRow(
-                        item = FilePickerFile(i.toString(), i.toLong()),
-                        rowSpacing = rowSpacing,
-                    )
+                items(files) { file ->
+                    Row(Modifier.fillMaxWidth().clickable {
+                        if (file.isDirectory) {
+                            currentDirectory = file
+                            files = file.listFiles()?.toList() ?: emptyList()
+                        } else {
+                            onFileSelected?.let { it(file) }
+                        }
+                    }) {
+                        val data = FilePickerFile(file)
+                        CollageMediaFilePickerRow(item = data, rowSpacing = rowSpacing)
+                    }
                 }
             }
         }
