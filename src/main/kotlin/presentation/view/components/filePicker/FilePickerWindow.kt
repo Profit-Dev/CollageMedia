@@ -43,7 +43,9 @@ fun FilePickerWindow() {
                 thickness = 2.dp,
             )
 
-            Text("CollageMediaFilePicker")
+            CollageMediaFilePicker(
+                modifier = Modifier.padding(horizontal = 50.dp, vertical = 20.dp)
+            )
         }
     }
 }
