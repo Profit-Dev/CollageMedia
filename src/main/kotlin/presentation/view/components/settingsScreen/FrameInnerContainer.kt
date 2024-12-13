@@ -8,12 +8,15 @@ import androidx.compose.ui.Modifier
 import presentation.view.themes.secondaryColor
 
 @Composable
-fun FrameInnerContainer(modifier: Modifier) {
+fun FrameInnerContainer(
+    modifier: Modifier,
+    content: @Composable () -> Unit = {}
+) {
     Column(
         modifier
             .fillMaxSize()
             .background(secondaryColor)
     ) {
-
+        content()
     }
 }
