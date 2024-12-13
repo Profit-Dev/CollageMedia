@@ -58,8 +58,9 @@ fun CollageMediaFilePicker(
                     .padding(10.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp),
             ) {
+                val boxSize = 125.dp
                 items(files) { file ->
-                    Row(Modifier.fillMaxWidth().clickable {
+                    Column(Modifier.size(boxSize).clickable {
                         if (file.isDirectory) {
                             currentDirectory = file
                             files = file.listFiles()?.toList() ?: emptyList()
@@ -68,7 +69,7 @@ fun CollageMediaFilePicker(
                         }
                     }) {
                         val data = FilePickerFile(file)
-                        CollageMediaFilePickerItem(item = data)
+                        CollageMediaFilePickerItem(item = data, boxSize = boxSize)
                     }
                 }
             }

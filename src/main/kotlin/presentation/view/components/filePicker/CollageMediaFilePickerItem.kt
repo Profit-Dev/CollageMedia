@@ -13,17 +13,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import models.files.FilePickerFile
 import presentation.view.themes.collageLightBlueColor
 
 @Composable
-fun CollageMediaFilePickerItem(item: FilePickerFile) {
+fun CollageMediaFilePickerItem(item: FilePickerFile, boxSize: Dp = 125.dp) {
     Column(
         Modifier
             .clip(RoundedCornerShape(16.dp))
             .background(collageLightBlueColor)
-            .size(125.dp)
+            .size(boxSize)
             .padding(horizontal = 25.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly,
