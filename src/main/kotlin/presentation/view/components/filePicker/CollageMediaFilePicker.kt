@@ -68,7 +68,7 @@ fun CollageMediaFilePicker(
                         }
                     }) {
                         val data = FilePickerFile(file)
-                        CollageMediaFilePickerRow(item = data)
+                        CollageMediaFilePickerItem(item = data)
                     }
                 }
             }
