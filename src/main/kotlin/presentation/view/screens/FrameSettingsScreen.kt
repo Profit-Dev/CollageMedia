@@ -1,5 +1,6 @@
 package presentation.view.screens
 
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,13 +10,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import presentation.view.components.FrameOutterContainer
-import presentation.view.components.FramesSettings
+import presentation.view.components.settingsScreen.FrameOutterContainer
+import presentation.view.components.settingsScreen.FramesSettings
 import androidx.compose.ui.unit.dp
-import presentation.view.components.FrameInnerContainer
+import presentation.view.components.settingsScreen.FrameInnerContainer
 import presentation.view.themes.mainWallpaperColor
 
 @Composable
+@Preview
 fun FrameSettingsScreen() {
     Row(
         Modifier
