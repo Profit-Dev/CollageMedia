@@ -13,7 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import models.files.FilePickerFile
@@ -31,17 +31,15 @@ fun CollageMediaFilePicker(
             modifier = modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
-            val rowSpacing: Dp = 185.dp
-
             Row(
                 modifier = Modifier.padding(horizontal = 25.dp),
-                horizontalArrangement = Arrangement.spacedBy(rowSpacing)
             ) {
                 Text(
                     text = "NAME",
                     color = secondaryColor,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold,
+                    modifier = Modifier.weight(1f),
                 )
 
                 Text(
@@ -49,6 +47,8 @@ fun CollageMediaFilePicker(
                     color = secondaryColor,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier.weight(1f),
                 )
             }
 
@@ -78,7 +78,7 @@ fun CollageMediaFilePicker(
                         }
                     }) {
                         val data = FilePickerFile(file)
-                        CollageMediaFilePickerRow(item = data, rowSpacing = rowSpacing)
+                        CollageMediaFilePickerRow(item = data)
                     }
                 }
             }

@@ -9,31 +9,36 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import models.files.FilePickerFile
 import presentation.view.themes.collageLightBlueColor
 
 @Composable
-fun CollageMediaFilePickerRow(item: FilePickerFile, rowSpacing: Dp) {
+fun CollageMediaFilePickerRow(item: FilePickerFile) {
     Row(
         Modifier
             .clip(RoundedCornerShape(16.dp))
             .background(collageLightBlueColor)
             .fillMaxWidth().height(50.dp)
             .padding(horizontal = 25.dp),
-        horizontalArrangement = Arrangement.spacedBy(rowSpacing),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(item.name)
-        Text("${item.size} B")
+        Text(
+            text = item.name,
+            modifier = Modifier.weight(1f),
+        )
+
+        Text(
+            text = "${item.size} B",
+            textAlign = TextAlign.Start,
+            modifier = Modifier.weight(1f),
+        )
     }
 }
 
 @Preview
 @Composable
 fun CollageMediaFilePickerRowPreview() {
-    CollageMediaFilePickerRow(
-        item = FilePickerFile("File name", 8), rowSpacing = 185.dp
-    )
+    CollageMediaFilePickerRow(item = FilePickerFile("File name", 8))
 }
