@@ -21,7 +21,7 @@ dependencies {
     implementation("com.mohamedrejeb.calf:calf-file-picker:0.6.1")
 
     implementation(compose.components.resources)
-
+    implementation(compose.materialIconsExtended)
 }
 
 compose.desktop {
