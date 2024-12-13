@@ -13,17 +13,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import presentation.view.themes.secondaryColor
+import presentation.view.themes.mainWallpaperColor
 
 @Composable
-fun AddFramesButton(onClick: () -> Unit) {
+fun AddFramesButton(modifier: Modifier = Modifier, onClick: (() -> Unit)? = null) {
     FloatingActionButton(
-        onClick = { onClick() },
-        modifier = Modifier
+        onClick = { onClick?.invoke() },
+        modifier = modifier
             .height(80.dp)
             .width(80.dp),
         shape = CircleShape,
-        backgroundColor = secondaryColor,
+        backgroundColor = mainWallpaperColor,
         contentColor = Color.White
     ) {
         Icon(Icons.Filled.Add, "+", modifier = Modifier.size(100.dp))
