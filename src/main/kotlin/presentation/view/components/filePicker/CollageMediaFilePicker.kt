@@ -8,14 +8,10 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Divider
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import models.files.FilePickerFile
 import presentation.view.themes.CollageMediaTheme
 import presentation.view.themes.secondaryColor
@@ -31,23 +27,6 @@ fun CollageMediaFilePicker(
             modifier = modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
-            Row(
-                modifier = Modifier.padding(horizontal = 25.dp),
-            ) {
-                Text(
-                    text = "NAME",
-                    color = secondaryColor,
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.weight(1f),
-                )
-            }
-
-            Divider(
-                color = secondaryColor,
-                thickness = 1.dp,
-            )
-
             var currentDirectory by remember { mutableStateOf(File(System.getProperty("user.home"))) }
             var files by remember { mutableStateOf(currentDirectory.listFiles()?.toList() ?: emptyList()) }
 
