@@ -36,37 +36,37 @@ fun CollageMediaFilePicker(
 
             val lazyGridState = rememberLazyGridState()
 
+            val boxSize = 128.dp
             Box(modifier = Modifier.fillMaxSize()) {
                 LazyVerticalGrid(
                     state = lazyGridState,
                     modifier = Modifier
-                        .fillMaxSize()
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(color = secondaryColor)
-                        .padding(10.dp),
+                        .fillMaxSize().clip(RoundedCornerShape(12.dp))
+                        .background(color = secondaryColor),
+                    contentPadding = PaddingValues(horizontal = 32.dp, vertical = 20.dp),
                     verticalArrangement = Arrangement.spacedBy(10.dp),
-                    columns = GridCells.Adaptive(minSize = 128.dp),
+                    columns = GridCells.Adaptive(boxSize),
                 ) {
-                    val boxSize = 125.dp
                     items(files) { file ->
-                        Column(Modifier.size(boxSize).clickable {
-                            if (file.isDirectory) {
-                                currentDirectory = file
-                                files = file.listFiles()?.toList() ?: emptyList()
-                            } else {
-                                onFileSelected?.let { it(file) }
-                            }
-                        }) {
+                        Column(
+                            Modifier.size(boxSize).padding(10.dp)
+                                .clip(RoundedCornerShape(12.dp)).clickable {
+                                    if (file.isDirectory) {
+                                        currentDirectory = file
+                                        files = file.listFiles()?.toList() ?: emptyList()
+                                    } else {
+                                        onFileSelected?.let { it(file) }
+                                    }
+                                }) {
                             val data = FilePickerFile(file)
                             CollageMediaFilePickerItem(item = data, boxSize = boxSize)
                         }
                     }
                 }
+
                 VerticalScrollbar(
-                    modifier = Modifier
-                        .align(Alignment.CenterEnd)
-                        .fillMaxHeight()
-                        .padding(5.dp),
+                    modifier = Modifier.align(Alignment.CenterEnd)
+                        .fillMaxHeight().padding(5.dp),
                     adapter = rememberScrollbarAdapter(lazyGridState)
                 )
             }
