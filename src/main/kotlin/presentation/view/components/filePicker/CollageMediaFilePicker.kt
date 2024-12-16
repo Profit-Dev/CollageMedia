@@ -11,11 +11,14 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import models.files.FilePickerFile
 import presentation.view.themes.CollageMediaTheme
 import presentation.view.themes.secondaryColor
@@ -35,6 +38,14 @@ fun CollageMediaFilePicker(
             var files by remember { mutableStateOf(currentDirectory.listFiles()?.toList() ?: emptyList()) }
 
             val lazyGridState = rememberLazyGridState()
+
+            Text(
+                text = "$currentDirectory",
+                modifier = Modifier.padding(bottom = 5.dp),
+                color = secondaryColor,
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Bold,
+            )
 
             val boxSize = 128.dp
             Box(modifier = Modifier.fillMaxSize()) {

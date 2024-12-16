@@ -22,7 +22,6 @@ fun FilePickerWindow() {
     CollageMediaTheme {
         Column(
             modifier = Modifier.fillMaxSize().background(color = windowColor),
-            verticalArrangement = Arrangement.spacedBy(30.dp)
         ) {
             Column(
                 modifier = Modifier.padding(start = 50.dp, top = 30.dp)
@@ -43,6 +42,7 @@ fun FilePickerWindow() {
 
             Divider(
                 color = secondaryColor,
+                modifier = Modifier.padding(top = 30.dp),
                 thickness = 1.dp,
             )
 
