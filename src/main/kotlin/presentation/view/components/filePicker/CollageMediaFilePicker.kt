@@ -4,8 +4,9 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
@@ -50,13 +51,14 @@ fun CollageMediaFilePicker(
             var currentDirectory by remember { mutableStateOf(File(System.getProperty("user.home"))) }
             var files by remember { mutableStateOf(currentDirectory.listFiles()?.toList() ?: emptyList()) }
 
-            LazyColumn(
+            LazyVerticalGrid(
                 modifier = Modifier
                     .fillMaxSize()
                     .clip(RoundedCornerShape(12.dp))
                     .background(color = secondaryColor)
                     .padding(10.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp),
+                columns = GridCells.Adaptive(minSize = 128.dp),
             ) {
                 val boxSize = 125.dp
                 items(files) { file ->
