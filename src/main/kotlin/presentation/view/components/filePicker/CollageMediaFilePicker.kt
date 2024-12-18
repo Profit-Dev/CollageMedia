@@ -74,7 +74,7 @@ fun CollageMediaFilePicker(
                     columns = GridCells.Adaptive(boxSize),
                 ) {
                     items(files) { file ->
-                        var isSelected by remember { mutableStateOf(false) }
+                        var isSelected by remember { mutableStateOf(file in selectedFiles) }
                         Column(
                             Modifier.size(boxSize).padding(10.dp)
                                 .clip(RoundedCornerShape(12.dp)).clickable {
