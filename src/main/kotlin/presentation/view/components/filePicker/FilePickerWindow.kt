@@ -23,26 +23,40 @@ fun FilePickerWindow() {
         Column(
             modifier = Modifier.fillMaxSize().background(color = windowColor),
         ) {
-            Column(
-                modifier = Modifier.padding(start = 50.dp, top = 30.dp)
-            ) {
-                Text(
-                    text = "FILE PICKER",
-                    color = secondaryColor,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                )
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(start = 50.dp, top = 30.dp, bottom = 30.dp, end = 30.dp)
+                , horizontalArrangement = Arrangement.SpaceBetween) {
+                Column {
+                    Text(
+                        text = "FILE PICKER",
+                        color = secondaryColor,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                    )
 
-                Text(
-                    text = "Select your images",
-                    color = secondaryColor,
-                    fontSize = 10.sp,
-                )
+                    Text(
+                        text = "Select your images",
+                        color = secondaryColor,
+                        fontSize = 10.sp,
+                    )
+                }
+                Row(horizontalArrangement = Arrangement.spacedBy(15.dp)) {
+                    FilePickerReturnButton(
+                        Modifier
+                            .size(50.dp)
+                    ) {}
+                    FilePickerCheckButton(
+                        Modifier
+                            .size(50.dp)
+                    ) {}
+                }
+
             }
 
             Divider(
                 color = secondaryColor,
-                modifier = Modifier.padding(top = 30.dp),
                 thickness = 1.dp,
             )
 
