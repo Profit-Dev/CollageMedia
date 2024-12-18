@@ -68,6 +68,7 @@ fun CollageMediaFilePicker(
                     columns = GridCells.Adaptive(boxSize),
                 ) {
                     items(files) { file ->
+                        var isSelected by remember { mutableStateOf(false)}
                         Column(
                             Modifier.size(boxSize).padding(10.dp)
                                 .clip(RoundedCornerShape(12.dp)).clickable {
@@ -76,10 +77,11 @@ fun CollageMediaFilePicker(
                                         files = file.listFiles()?.toList() ?: emptyList()
                                     } else {
                                         onFileSelected?.let { it(file) }
+                                        isSelected = true
                                     }
                                 }) {
                             val data = FilePickerFile(file)
-                            CollageMediaFilePickerItem(item = data, boxSize = boxSize)
+                            CollageMediaFilePickerItem(item = data, isSelected = isSelected, boxSize = boxSize)
                         }
                     }
                 }
