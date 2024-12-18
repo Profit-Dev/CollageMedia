@@ -65,9 +65,7 @@ fun FilePickerWindow() {
 
             CollageMediaFilePicker(
                 modifier = Modifier.padding(horizontal = 50.dp, vertical = 20.dp),
-                onFileSelected = {
-                    if (it !in selectedFiles) selectedFiles.add(it) else selectedFiles.remove(it)
-                }
+                selectedFiles = selectedFiles,
             )
         }
     }
