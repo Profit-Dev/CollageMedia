@@ -26,8 +26,9 @@ fun FilePickerWindow() {
             Row(
                 Modifier
                     .fillMaxWidth()
-                    .padding(start = 50.dp, top = 30.dp, bottom = 30.dp, end = 30.dp)
-                , horizontalArrangement = Arrangement.SpaceBetween) {
+                    .padding(start = 50.dp, top = 30.dp, bottom = 30.dp, end = 30.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
                 Column {
                     Text(
                         text = "FILE PICKER",
@@ -64,7 +65,9 @@ fun FilePickerWindow() {
 
             CollageMediaFilePicker(
                 modifier = Modifier.padding(horizontal = 50.dp, vertical = 20.dp),
-                onFileSelected = { selectedFiles.add(it) }
+                onFileSelected = {
+                    if (it !in selectedFiles) selectedFiles.add(it) else selectedFiles.remove(it)
+                }
             )
         }
     }

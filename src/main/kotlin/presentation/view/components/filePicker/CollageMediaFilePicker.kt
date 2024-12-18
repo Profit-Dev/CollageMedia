@@ -71,7 +71,7 @@ fun CollageMediaFilePicker(
                                         files = file.listFiles()?.filterDirectoriesAndPictures() ?: emptyList()
                                     } else {
                                         onFileSelected?.let { it(file) }
-                                        isSelected = true
+                                        isSelected = !isSelected
                                     }
                                 }) {
                             val data = FilePickerFile(file)
