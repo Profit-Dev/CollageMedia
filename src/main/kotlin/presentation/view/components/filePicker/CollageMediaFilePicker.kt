@@ -35,7 +35,16 @@ fun CollageMediaFilePicker(
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             var currentDirectory by remember { mutableStateOf(File(System.getProperty("user.home"))) }
-            var files by remember { mutableStateOf(currentDirectory.listFiles()?.toList() ?: emptyList()) }
+            var files by remember {
+                mutableStateOf(currentDirectory.listFiles()?.filter { f ->
+                    f.isDirectory || (f.isFile && f.extension in arrayOf(
+                        "png",
+                        "jpg",
+                        "jpeg",
+                        "heic"
+                    ))
+                }?.toList() ?: emptyList())
+            }
 
             val lazyGridState = rememberLazyGridState()
 
