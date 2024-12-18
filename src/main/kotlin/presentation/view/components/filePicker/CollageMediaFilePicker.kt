@@ -19,6 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import extensions.filterDirectoriesAndPictures
 import models.files.FilePickerFile
 import presentation.view.themes.CollageMediaTheme
 import presentation.view.themes.secondaryColor
@@ -36,14 +37,7 @@ fun CollageMediaFilePicker(
         ) {
             var currentDirectory by remember { mutableStateOf(File(System.getProperty("user.home"))) }
             var files by remember {
-                mutableStateOf(currentDirectory.listFiles()?.filter { f ->
-                    f.isDirectory || (f.isFile && f.extension in arrayOf(
-                        "png",
-                        "jpg",
-                        "jpeg",
-                        "heic"
-                    ))
-                }?.toList() ?: emptyList())
+                mutableStateOf(currentDirectory.listFiles()?.filterDirectoriesAndPictures() ?: emptyList())
             }
 
             val lazyGridState = rememberLazyGridState()
@@ -68,13 +62,13 @@ fun CollageMediaFilePicker(
                     columns = GridCells.Adaptive(boxSize),
                 ) {
                     items(files) { file ->
-                        var isSelected by remember { mutableStateOf(false)}
+                        var isSelected by remember { mutableStateOf(false) }
                         Column(
                             Modifier.size(boxSize).padding(10.dp)
                                 .clip(RoundedCornerShape(12.dp)).clickable {
                                     if (file.isDirectory) {
                                         currentDirectory = file
-                                        files = file.listFiles()?.toList() ?: emptyList()
+                                        files = file.listFiles()?.filterDirectoriesAndPictures() ?: emptyList()
                                     } else {
                                         onFileSelected?.let { it(file) }
                                         isSelected = true
