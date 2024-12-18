@@ -13,17 +13,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import models.files.FilePickerFile
 import presentation.view.themes.collageLightBlueColor
+import presentation.view.themes.mainWallpaperColor
+import presentation.view.themes.secondaryColor
 
 @Composable
-fun CollageMediaFilePickerItem(item: FilePickerFile, boxSize: Dp = 125.dp) {
+fun CollageMediaFilePickerItem(item: FilePickerFile, isSelected: Boolean, boxSize: Dp = 125.dp) {
     Column(
         Modifier
             .clip(RoundedCornerShape(16.dp))
-            .background(collageLightBlueColor)
+            .background(if (isSelected) mainWallpaperColor else collageLightBlueColor)
             .size(boxSize)
             .padding(horizontal = 25.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -54,7 +57,8 @@ fun CollageMediaFilePickerItem(item: FilePickerFile, boxSize: Dp = 125.dp) {
 @Composable
 fun CollageMediaFilePickerRowItem() {
     Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(50.dp)) {
-        CollageMediaFilePickerItem(FilePickerFile("Directory", true))
-        CollageMediaFilePickerItem(FilePickerFile("File", false))
+        CollageMediaFilePickerItem(FilePickerFile("Directory", true), false)
+        CollageMediaFilePickerItem(FilePickerFile("Selected File", false), true)
+        CollageMediaFilePickerItem(FilePickerFile("File", false), false)
     }
 }

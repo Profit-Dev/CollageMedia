@@ -19,6 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import extensions.filterDirectoriesAndPictures
 import models.files.FilePickerFile
 import presentation.view.themes.CollageMediaTheme
 import presentation.view.themes.secondaryColor
@@ -35,7 +36,9 @@ fun CollageMediaFilePicker(
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             var currentDirectory by remember { mutableStateOf(File(System.getProperty("user.home"))) }
-            var files by remember { mutableStateOf(currentDirectory.listFiles()?.toList() ?: emptyList()) }
+            var files by remember {
+                mutableStateOf(currentDirectory.listFiles()?.filterDirectoriesAndPictures() ?: emptyList())
+            }
 
             val lazyGridState = rememberLazyGridState()
 
@@ -59,18 +62,20 @@ fun CollageMediaFilePicker(
                     columns = GridCells.Adaptive(boxSize),
                 ) {
                     items(files) { file ->
+                        var isSelected by remember { mutableStateOf(false) }
                         Column(
                             Modifier.size(boxSize).padding(10.dp)
                                 .clip(RoundedCornerShape(12.dp)).clickable {
                                     if (file.isDirectory) {
                                         currentDirectory = file
-                                        files = file.listFiles()?.toList() ?: emptyList()
+                                        files = file.listFiles()?.filterDirectoriesAndPictures() ?: emptyList()
                                     } else {
                                         onFileSelected?.let { it(file) }
+                                        isSelected = true
                                     }
                                 }) {
                             val data = FilePickerFile(file)
-                            CollageMediaFilePickerItem(item = data, boxSize = boxSize)
+                            CollageMediaFilePickerItem(item = data, isSelected = isSelected, boxSize = boxSize)
                         }
                     }
                 }
