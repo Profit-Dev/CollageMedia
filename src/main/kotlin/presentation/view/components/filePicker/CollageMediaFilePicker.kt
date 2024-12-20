@@ -13,33 +13,31 @@ import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import extensions.filterDirectoriesAndPictures
+import androidx.lifecycle.viewmodel.compose.viewModel
 import models.files.FilePickerFile
 import presentation.view.themes.CollageMediaTheme
 import presentation.view.themes.secondaryColor
-import java.io.File
+import presentation.viewmodels.FilePickerViewModel
 
 @Composable
 fun CollageMediaFilePicker(
+    filePickerViewModel: FilePickerViewModel = viewModel(),
     modifier: Modifier = Modifier,
-    selectedFiles: SnapshotStateList<File>,
 ) {
     CollageMediaTheme {
         Column(
             modifier = modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
-            var currentDirectory by remember { mutableStateOf(File(System.getProperty("user.home"))) }
-            var files by remember {
-                mutableStateOf(currentDirectory.listFiles()?.filterDirectoriesAndPictures() ?: emptyList())
-            }
+            val currentDirectory by filePickerViewModel.currentDirectory
+            val files by filePickerViewModel.directoryFiles
+            val selectedFiles = filePickerViewModel.selectedFiles
 
             val lazyGridState = rememberLazyGridState()
 
@@ -74,22 +72,13 @@ fun CollageMediaFilePicker(
                     columns = GridCells.Adaptive(boxSize),
                 ) {
                     items(files) { file ->
-                        var isSelected by remember { mutableStateOf(file in selectedFiles) }
+                        val isSelected = file in selectedFiles
                         Column(
                             Modifier.size(boxSize).padding(10.dp)
                                 .clip(RoundedCornerShape(12.dp)).clickable {
                                     when {
-                                        file.isDirectory -> {
-                                            currentDirectory = file
-                                            files = file.listFiles()?.filterDirectoriesAndPictures() ?: emptyList()
-                                        }
-
-                                        else -> {
-                                            if (file !in selectedFiles) selectedFiles.add(file)
-                                            else selectedFiles.remove(file)
-
-                                            isSelected = !isSelected
-                                        }
+                                        file.isDirectory -> filePickerViewModel.updateCurrentDirectory(file)
+                                        else -> filePickerViewModel.toggleFileSelection(file)
                                     }
                                 }) {
                             val data = FilePickerFile(file)
@@ -111,6 +100,5 @@ fun CollageMediaFilePicker(
 @Preview
 @Composable
 fun CollageMediaFilePickerPreview() {
-    val selectedFiles = listOf(File("/"))
-    CollageMediaFilePicker(selectedFiles = selectedFiles.toMutableStateList())
+    CollageMediaFilePicker()
 }

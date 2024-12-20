@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -15,7 +13,6 @@ import androidx.compose.ui.unit.sp
 import presentation.view.themes.CollageMediaTheme
 import presentation.view.themes.secondaryColor
 import presentation.view.themes.windowColor
-import java.io.File
 
 @Composable
 fun FilePickerWindow() {
@@ -61,11 +58,8 @@ fun FilePickerWindow() {
                 thickness = 1.dp,
             )
 
-            val selectedFiles = remember { mutableStateListOf<File>() }
-
             CollageMediaFilePicker(
                 modifier = Modifier.padding(horizontal = 50.dp, vertical = 20.dp),
-                selectedFiles = selectedFiles,
             )
         }
     }
