@@ -8,3 +8,9 @@ fun Array<File>?.filterDirectoriesAndPictures(): List<File>? = this?.filter { f 
         "png", "jpg", "jpeg", "heic"
     ))
 }?.toList()
+
+fun File.listFilesInDirectory(): List<File> = try {
+    this.listFiles()?.filterDirectoriesAndPictures() ?: emptyList()
+} catch (e: Exception) {
+    throw e
+}
