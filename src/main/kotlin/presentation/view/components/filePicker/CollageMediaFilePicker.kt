@@ -19,7 +19,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import models.files.FilePickerFile
 import presentation.view.themes.CollageMediaTheme
 import presentation.view.themes.secondaryColor
@@ -27,7 +26,7 @@ import presentation.viewmodels.FilePickerViewModel
 
 @Composable
 fun CollageMediaFilePicker(
-    filePickerViewModel: FilePickerViewModel = viewModel(),
+    filePickerViewModel: FilePickerViewModel,
     modifier: Modifier = Modifier,
 ) {
     CollageMediaTheme {
@@ -100,5 +99,6 @@ fun CollageMediaFilePicker(
 @Preview
 @Composable
 fun CollageMediaFilePickerPreview() {
-    CollageMediaFilePicker()
+    val viewModel = FilePickerViewModel()
+    CollageMediaFilePicker(viewModel)
 }

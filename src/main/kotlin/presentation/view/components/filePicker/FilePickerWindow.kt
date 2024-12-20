@@ -10,57 +10,68 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.ui.window.Window
 import presentation.view.themes.CollageMediaTheme
 import presentation.view.themes.secondaryColor
 import presentation.view.themes.windowColor
 import presentation.viewmodels.FilePickerViewModel
 
 @Composable
-fun FilePickerWindow(filePickerViewModel: FilePickerViewModel = viewModel()) {
+fun FilePickerWindow(
+    filePickerViewModel: FilePickerViewModel,
+    onCloseRequest: () -> Unit,
+) {
     CollageMediaTheme {
-        Column(
-            modifier = Modifier.fillMaxSize().background(color = windowColor),
+        Window(
+            title = "File Picker",
+            onCloseRequest = onCloseRequest
         ) {
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(start = 50.dp, top = 30.dp, bottom = 30.dp, end = 30.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
+            Column(
+                modifier = Modifier.fillMaxSize().background(color = windowColor),
             ) {
-                Column {
-                    Text(
-                        text = "FILE PICKER",
-                        color = secondaryColor,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                    )
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(start = 50.dp, top = 30.dp, bottom = 30.dp, end = 30.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Column {
+                        Text(
+                            text = "FILE PICKER",
+                            color = secondaryColor,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                        )
 
-                    Text(
-                        text = "Select your images",
-                        color = secondaryColor,
-                        fontSize = 10.sp,
-                    )
-                }
-                Row(horizontalArrangement = Arrangement.spacedBy(15.dp)) {
-                    FilePickerReturnButton(modifier = Modifier.size(50.dp)) {
-                        filePickerViewModel.currentDirectory.value.parentFile?.let {
-                            filePickerViewModel.updateCurrentDirectory(it)
+                        Text(
+                            text = "Select your images",
+                            color = secondaryColor,
+                            fontSize = 10.sp,
+                        )
+                    }
+                    Row(horizontalArrangement = Arrangement.spacedBy(15.dp)) {
+                        FilePickerReturnButton(modifier = Modifier.size(50.dp)) {
+                            filePickerViewModel.currentDirectory.value.parentFile?.let {
+                                filePickerViewModel.updateCurrentDirectory(it)
+                            }
+                        }
+                        FilePickerCheckButton(Modifier.size(50.dp)) {
+                            onCloseRequest()
                         }
                     }
-                    FilePickerCheckButton(Modifier.size(50.dp)) {}
+
                 }
 
+                Divider(
+                    color = secondaryColor,
+                    thickness = 1.dp,
+                )
+
+                CollageMediaFilePicker(
+                    modifier = Modifier.padding(horizontal = 50.dp, vertical = 20.dp),
+                    filePickerViewModel = filePickerViewModel,
+                )
             }
-
-            Divider(
-                color = secondaryColor,
-                thickness = 1.dp,
-            )
-
-            CollageMediaFilePicker(
-                modifier = Modifier.padding(horizontal = 50.dp, vertical = 20.dp),
-            )
         }
     }
 }
@@ -68,5 +79,6 @@ fun FilePickerWindow(filePickerViewModel: FilePickerViewModel = viewModel()) {
 @Preview
 @Composable
 fun FilePickerWindowPreview() {
-    FilePickerWindow()
+    val viewModel = FilePickerViewModel()
+    FilePickerWindow(viewModel) {}
 }
