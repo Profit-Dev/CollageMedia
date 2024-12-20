@@ -10,12 +10,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import presentation.view.themes.CollageMediaTheme
 import presentation.view.themes.secondaryColor
 import presentation.view.themes.windowColor
+import presentation.viewmodels.FilePickerViewModel
 
 @Composable
-fun FilePickerWindow() {
+fun FilePickerWindow(filePickerViewModel: FilePickerViewModel = viewModel()) {
     CollageMediaTheme {
         Column(
             modifier = Modifier.fillMaxSize().background(color = windowColor),
@@ -41,14 +43,12 @@ fun FilePickerWindow() {
                     )
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(15.dp)) {
-                    FilePickerReturnButton(
-                        Modifier
-                            .size(50.dp)
-                    ) {}
-                    FilePickerCheckButton(
-                        Modifier
-                            .size(50.dp)
-                    ) {}
+                    FilePickerReturnButton(modifier = Modifier.size(50.dp)) {
+                        filePickerViewModel.currentDirectory.value.parentFile?.let {
+                            filePickerViewModel.updateCurrentDirectory(it)
+                        }
+                    }
+                    FilePickerCheckButton(Modifier.size(50.dp)) {}
                 }
 
             }
