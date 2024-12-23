@@ -7,18 +7,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.Font
+import org.neverland.collage_media.generated.resources.Kodchasan_Bold
+import org.neverland.collage_media.generated.resources.Kodchasan_Italic
 import org.neverland.collage_media.generated.resources.Kodchasan_Regular
-import org.neverland.collage_media.generated .resources.Res
+import org.neverland.collage_media.generated.resources.Res
 
 @Composable
 fun CollageMediaTheme(
     content: @Composable () -> Unit
 ) {
     val kodchasan = FontFamily(
-        Font(resource = Res.font.Kodchasan_Regular, FontWeight.Normal)
+        Font(resource = Res.font.Kodchasan_Regular, FontWeight.Normal, FontStyle.Normal),
+        Font(resource = Res.font.Kodchasan_Bold, FontWeight.Bold, FontStyle.Normal),
+        Font(resource = Res.font.Kodchasan_Italic, FontWeight.Normal, FontStyle.Italic),
+        Font(resource = Res.font.Kodchasan_Italic, FontWeight.Bold, FontStyle.Italic)
     )
 
     val appTypography = Typography(

@@ -17,7 +17,7 @@ import presentation.view.themes.whiteColor
 @Composable
 fun SelectButton(onClick: () -> Unit) {
     Button(
-        onClick = { onClick() },
+        onClick = onClick,
         modifier = Modifier
             .height(110.dp)
             .width(600.dp),
@@ -25,7 +25,7 @@ fun SelectButton(onClick: () -> Unit) {
         colors = ButtonDefaults.buttonColors(backgroundColor = secondaryColor)
 
     ) {
-        Text(text ="Select your frames", fontSize = 40.sp, color = whiteColor, fontWeight = FontWeight.Normal)
+        Text(text = "Select your frames", fontSize = 40.sp, color = whiteColor, fontWeight = FontWeight.Normal)
     }
 }
 

@@ -17,11 +17,11 @@ repositories {
 
 dependencies {
     implementation(compose.desktop.currentOs)
-
-    implementation("com.mohamedrejeb.calf:calf-file-picker:0.6.1")
-
     implementation(compose.components.resources)
+    implementation(compose.materialIconsExtended)
 
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.9.0")
+    implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2")
 }
 
 compose.desktop {
