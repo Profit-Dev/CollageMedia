@@ -15,6 +15,7 @@ import presentation.view.themes.CollageMediaTheme
 import presentation.view.themes.secondaryColor
 import presentation.view.themes.windowColor
 import presentation.viewmodels.FilePickerViewModel
+import java.awt.Dimension
 
 @Composable
 fun FilePickerWindow(
@@ -26,6 +27,8 @@ fun FilePickerWindow(
             title = "File Picker",
             onCloseRequest = onCloseRequest
         ) {
+            window.minimumSize = Dimension(600,500)
+
             Column(
                 modifier = Modifier.fillMaxSize().background(color = windowColor),
             ) {
