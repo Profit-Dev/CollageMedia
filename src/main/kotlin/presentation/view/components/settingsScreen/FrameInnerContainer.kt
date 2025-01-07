@@ -1,4 +1,4 @@
-package presentation.view.components
+package presentation.view.components.settingsScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -8,12 +8,15 @@ import androidx.compose.ui.Modifier
 import presentation.view.themes.secondaryColor
 
 @Composable
-fun FrameInnerContainer(modifier: Modifier) {
+fun FrameInnerContainer(
+    modifier: Modifier,
+    content: @Composable () -> Unit = {}
+) {
     Column(
         modifier
             .fillMaxSize()
             .background(secondaryColor)
     ) {
-
+        content()
     }
 }
