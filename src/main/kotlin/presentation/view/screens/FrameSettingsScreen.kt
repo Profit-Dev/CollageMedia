@@ -12,54 +12,57 @@ import androidx.compose.ui.draw.clip
 import presentation.view.components.FrameOutterContainer
 import presentation.view.components.FramesSettings
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.screen.Screen
 import presentation.view.components.FrameInnerContainer
 import presentation.view.themes.mainWallpaperColor
 
-@Composable
-fun FrameSettingsScreen() {
-    Row(
-        Modifier
-            .fillMaxSize()
-            .background(mainWallpaperColor)
-    ) {
-        FrameOutterContainer(
+class FrameSettingsScreen : Screen {
+    @Composable
+    override fun Content() {
+        Row(
             Modifier
-                .padding(start = 60.dp, top = 60.dp, bottom = 60.dp)
-                .weight(0.7f)
-                .clip(
-                    RoundedCornerShape(
-                        topStart = 20.dp,
-                        bottomStart = 20.dp,
-                        topEnd = 0.dp,
-                        bottomEnd = 0.dp
-                    )
-                )
+                .fillMaxSize()
+                .background(mainWallpaperColor)
         ) {
-            FrameInnerContainer(
+            FrameOutterContainer(
                 Modifier
-                    .padding(
-                        start = 50.dp,
-                        top = 0.dp,
-                        bottom = 55.dp,
-                        end = 50.dp
+                    .padding(start = 60.dp, top = 60.dp, bottom = 60.dp)
+                    .weight(0.7f)
+                    .clip(
+                        RoundedCornerShape(
+                            topStart = 20.dp,
+                            bottomStart = 20.dp,
+                            topEnd = 0.dp,
+                            bottomEnd = 0.dp
+                        )
                     )
-                    .clip(RoundedCornerShape(10.dp))
+            ) {
+                FrameInnerContainer(
+                    Modifier
+                        .padding(
+                            start = 50.dp,
+                            top = 0.dp,
+                            bottom = 55.dp,
+                            end = 50.dp
+                        )
+                        .clip(RoundedCornerShape(10.dp))
+                )
+            }
+
+            FramesSettings(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(top = 60.dp, bottom = 60.dp, end = 60.dp)
+                    .weight(0.3f)
+                    .clip(
+                        RoundedCornerShape(
+                            topStart = 0.dp,
+                            bottomStart = 0.dp,
+                            topEnd = 20.dp,
+                            bottomEnd = 20.dp
+                        )
+                    )
             )
         }
-
-        FramesSettings(
-            Modifier
-                .fillMaxWidth()
-                .padding(top = 60.dp, bottom = 60.dp, end = 60.dp)
-                .weight(0.3f)
-                .clip(
-                    RoundedCornerShape(
-                        topStart = 0.dp,
-                        bottomStart = 0.dp,
-                        topEnd = 20.dp,
-                        bottomEnd = 20.dp
-                    )
-                )
-        )
     }
 }
