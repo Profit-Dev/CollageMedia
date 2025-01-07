@@ -14,7 +14,6 @@ import androidx.compose.ui.unit.dp
 import presentation.view.components.settingsScreen.AddFramesButton
 import presentation.view.components.settingsScreen.FrameInnerContainer
 import cafe.adriel.voyager.core.screen.Screen
-import presentation.view.components.FrameInnerContainer
 import presentation.view.themes.mainWallpaperColor
 
 class FrameSettingsScreen : Screen {
