@@ -1,7 +1,13 @@
 package presentation.view.screens
 
+import androidx.compose.foundation.VerticalScrollbar
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -10,12 +16,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import cafe.adriel.voyager.core.screen.Screen
+import models.files.FilePickerFile
+import presentation.view.components.filePicker.CollageMediaFilePickerItem
 import presentation.view.components.filePicker.FilePickerWindow
 import presentation.view.components.settingsScreen.AddFramesButton
 import presentation.view.components.settingsScreen.FrameInnerContainer
 import presentation.view.components.settingsScreen.FrameOutterContainer
 import presentation.view.components.settingsScreen.FramesSettings
 import presentation.view.themes.mainWallpaperColor
+import presentation.view.themes.secondaryColor
 import presentation.viewmodels.FilePickerViewModel
 
 class FrameSettingsScreen : Screen {
@@ -52,8 +61,39 @@ class FrameSettingsScreen : Screen {
                         .clip(RoundedCornerShape(10.dp))
                 ) {
                     Box(Modifier.fillMaxSize()) {
-                        var showFilePicker by remember { mutableStateOf(false) }
+                        val files = filePickerViewModel.selectedFiles
+                        val lazyGridState = rememberLazyGridState()
+                        val boxSize = 128.dp
 
+                        Box(modifier = Modifier.fillMaxSize()) {
+                            LazyVerticalGrid(
+                                state = lazyGridState,
+                                modifier = Modifier
+                                    .fillMaxSize().clip(RoundedCornerShape(12.dp))
+                                    .background(color = secondaryColor),
+                                contentPadding = PaddingValues(horizontal = 32.dp, vertical = 20.dp),
+                                verticalArrangement = Arrangement.spacedBy(10.dp),
+                                columns = GridCells.Adaptive(boxSize),
+                            ) {
+                                items(files) { file ->
+                                    Column(
+                                        Modifier.size(boxSize).padding(10.dp)
+                                            .clip(RoundedCornerShape(12.dp))
+                                    ) {
+                                        val data = FilePickerFile(file)
+                                        CollageMediaFilePickerItem(item = data, isSelected = false, boxSize = boxSize)
+                                    }
+                                }
+                            }
+
+                            VerticalScrollbar(
+                                modifier = Modifier.align(Alignment.CenterEnd)
+                                    .fillMaxHeight().padding(5.dp),
+                                adapter = rememberScrollbarAdapter(lazyGridState)
+                            )
+                        }
+
+                        var showFilePicker by remember { mutableStateOf(false) }
                         AddFramesButton(
                             Modifier
                                 .align(Alignment.BottomEnd)
@@ -61,11 +101,8 @@ class FrameSettingsScreen : Screen {
                         ) {
                             showFilePicker = true
                         }
-                        if (showFilePicker) {
-                            FilePickerWindow(filePickerViewModel) {
-                                showFilePicker = false
-                            }
-                        }
+
+                        if (showFilePicker) FilePickerWindow(filePickerViewModel) { showFilePicker = false }
                     }
                 }
             }
