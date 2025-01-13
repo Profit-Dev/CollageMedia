@@ -17,12 +17,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import cafe.adriel.voyager.core.screen.Screen
 import models.files.FilePickerFile
-import presentation.view.components.filePicker.CollageMediaFilePickerItem
 import presentation.view.components.filePicker.FilePickerWindow
-import presentation.view.components.settingsScreen.AddFramesButton
-import presentation.view.components.settingsScreen.FrameInnerContainer
-import presentation.view.components.settingsScreen.FrameOutterContainer
-import presentation.view.components.settingsScreen.FramesSettings
+import presentation.view.components.settingsScreen.*
 import presentation.view.themes.mainWallpaperColor
 import presentation.view.themes.secondaryColor
 import presentation.viewmodels.FilePickerViewModel
@@ -81,7 +77,7 @@ class FrameSettingsScreen : Screen {
                                             .clip(RoundedCornerShape(12.dp))
                                     ) {
                                         val data = FilePickerFile(file)
-                                        CollageMediaFilePickerItem(item = data, isSelected = false, boxSize = boxSize)
+                                        ImageFrame(item = data, boxSize = boxSize)
                                     }
                                 }
                             }
