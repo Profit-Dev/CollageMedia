@@ -26,6 +26,8 @@ dependencies {
 
     implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
     implementation("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
+
+    implementation("io.coil-kt.coil3:coil-compose:3.0.4")
 }
 
 compose.desktop {
