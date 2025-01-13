@@ -50,7 +50,7 @@ fun ImageFramePreview() {
     ImageFrame(
         FilePickerFile(
             "Picture with a very long name text", false,
-            "/home/kauegaruda/Pictures/342146cf-c687-4506-9482-cc7315f9fec4.jpeg",
+            "/path"
         )
     )
 }
