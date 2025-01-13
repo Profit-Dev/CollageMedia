@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
@@ -36,6 +37,8 @@ fun ImageFrame(item: FilePickerFile, boxSize: Dp = 256.dp) {
 
         Text(
             text = item.name,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier.weight(1f),
         )
     }
@@ -46,7 +49,7 @@ fun ImageFrame(item: FilePickerFile, boxSize: Dp = 256.dp) {
 fun ImageFramePreview() {
     ImageFrame(
         FilePickerFile(
-            "Picture", false,
+            "Picture with a very long name text", false,
             "/home/kauegaruda/Pictures/342146cf-c687-4506-9482-cc7315f9fec4.jpeg",
         )
     )
