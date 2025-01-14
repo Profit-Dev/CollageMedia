@@ -2,10 +2,7 @@ package presentation.view.components.settingsScreen
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -15,31 +12,37 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import models.files.FilePickerFile
 import presentation.view.themes.collageLightBlueColor
 
 @Composable
-fun ImageFrame(item: FilePickerFile, boxSize: Dp = 256.dp) {
+fun ImageFrame(
+    item: FilePickerFile, boxWidth: Dp = 128.dp, boxHeight: Dp = 150.dp
+) {
     Column(
         Modifier
             .clip(RoundedCornerShape(16.dp))
             .background(collageLightBlueColor)
-            .size(boxSize)
-            .padding(horizontal = 25.dp),
+            .width(boxWidth)
+            .height(boxHeight)
+            .padding(horizontal = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly,
     ) {
         AsyncImage(
             model = item.path,
             contentDescription = item.name,
+            alignment = Alignment.Center,
+            modifier = Modifier.padding(vertical = 10.dp).height(60.dp)
         )
 
         Text(
             text = item.name,
-            maxLines = 1,
+            maxLines = 2,
             overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.weight(1f),
+            fontSize = 15.sp,
         )
     }
 }
