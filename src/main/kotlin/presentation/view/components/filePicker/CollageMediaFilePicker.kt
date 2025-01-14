@@ -59,7 +59,8 @@ fun CollageMediaFilePicker(
                 )
             }
 
-            val boxSize = 128.dp
+            val boxWidth = 132.dp
+            val boxHeight = 150.dp
             Box(modifier = Modifier.fillMaxSize()) {
                 LazyVerticalGrid(
                     state = lazyGridState,
@@ -68,12 +69,12 @@ fun CollageMediaFilePicker(
                         .background(color = secondaryColor),
                     contentPadding = PaddingValues(horizontal = 32.dp, vertical = 20.dp),
                     verticalArrangement = Arrangement.spacedBy(10.dp),
-                    columns = GridCells.Adaptive(boxSize),
+                    columns = GridCells.Adaptive(boxWidth),
                 ) {
                     items(files) { file ->
                         val isSelected = file in selectedFiles
                         Column(
-                            Modifier.size(boxSize).padding(10.dp)
+                            Modifier.width(boxWidth).height(boxHeight).padding(10.dp)
                                 .clip(RoundedCornerShape(12.dp)).clickable {
                                     when {
                                         file.isDirectory -> filePickerViewModel.updateCurrentDirectory(file)
@@ -81,7 +82,12 @@ fun CollageMediaFilePicker(
                                     }
                                 }) {
                             val data = FilePickerFile(file)
-                            CollageMediaFilePickerItem(item = data, isSelected = isSelected, boxSize = boxSize)
+                            CollageMediaFilePickerItem(
+                                item = data,
+                                isSelected = isSelected,
+                                boxWidth = boxWidth,
+                                boxHeight = boxHeight
+                            )
                         }
                     }
                 }
