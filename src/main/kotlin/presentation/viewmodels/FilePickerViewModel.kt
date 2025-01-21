@@ -23,4 +23,8 @@ class FilePickerViewModel : ViewModel() {
     fun toggleFileSelection(file: File) =
         if (file in selectedFiles) selectedFiles.remove(file)
         else selectedFiles.add(file)
+
+    fun toggleSelectedFiles(files: List<File>) = selectedFiles.addAll(
+        files.filterNot { it.isDirectory; selectedFiles.contains(it) }
+    )
 }
