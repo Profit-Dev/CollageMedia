@@ -5,6 +5,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.outlined.RestorePage
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -27,7 +31,7 @@ fun FilePickerWindow(
             title = "File Picker",
             onCloseRequest = onCloseRequest
         ) {
-            window.minimumSize = Dimension(600,500)
+            window.minimumSize = Dimension(600, 500)
 
             Column(
                 modifier = Modifier.fillMaxSize().background(color = windowColor),
@@ -53,17 +57,29 @@ fun FilePickerWindow(
                         )
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(15.dp)) {
-                        FilePickerReturnButton(modifier = Modifier.size(50.dp)) {
+                        FilePickerButton(
+                            modifier = Modifier.size(50.dp),
+                            icon = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Return Button"
+                        ) {
                             filePickerViewModel.currentDirectory.value.parentFile?.let {
                                 filePickerViewModel.updateCurrentDirectory(it)
                             }
                         }
 
-                        FilePickerResetButton(modifier = Modifier.size(50.dp)) {
+                        FilePickerButton(
+                            modifier = Modifier.size(50.dp),
+                            icon = Icons.Outlined.RestorePage,
+                            contentDescription = "Reset Button"
+                        ) {
                             filePickerViewModel.clearFiles()
                         }
 
-                        FilePickerCheckButton(Modifier.size(50.dp)) {
+                        FilePickerButton(
+                            Modifier.size(50.dp),
+                            icon = Icons.Filled.Check,
+                            contentDescription = "Check Button"
+                        ) {
                             onCloseRequest()
                         }
                     }
