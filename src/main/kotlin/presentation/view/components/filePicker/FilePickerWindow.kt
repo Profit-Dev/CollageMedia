@@ -58,6 +58,11 @@ fun FilePickerWindow(
                                 filePickerViewModel.updateCurrentDirectory(it)
                             }
                         }
+
+                        FilePickerResetButton(modifier = Modifier.size(50.dp)) {
+                            filePickerViewModel.clearFiles()
+                        }
+
                         FilePickerCheckButton(Modifier.size(50.dp)) {
                             onCloseRequest()
                         }
