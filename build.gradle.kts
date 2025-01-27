@@ -16,12 +16,18 @@ repositories {
 }
 
 dependencies {
+    val voyagerVersion = "1.0.1"
     implementation(compose.desktop.currentOs)
     implementation(compose.components.resources)
     implementation(compose.materialIconsExtended)
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.9.0")
     implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2")
+
+    implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
+    implementation("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
+
+    implementation("io.coil-kt.coil3:coil-compose:3.0.4")
 }
 
 compose.desktop {
