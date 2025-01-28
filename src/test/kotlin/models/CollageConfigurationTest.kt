@@ -1,7 +1,9 @@
 package models
 
+import exceptions.collageConfiguration.CollageConfigurationZeroRowsOrColumnsException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class CollageConfigurationTest {
     @Test
@@ -13,5 +15,20 @@ class CollageConfigurationTest {
         val testConfig = CollageConfiguration(PictureOrientation.VERTICAL, rows, columns)
 
         assertEquals(expected, testConfig.imagesPerPage)
+    }
+
+    @Test
+    fun passingZeroRowsOrColumnsShouldThrowAnException() {
+        assertThrows<CollageConfigurationZeroRowsOrColumnsException> {
+            CollageConfiguration(PictureOrientation.VERTICAL, 0, 5)
+        }
+
+        assertThrows<CollageConfigurationZeroRowsOrColumnsException> {
+            CollageConfiguration(PictureOrientation.VERTICAL, 5, 0)
+        }
+
+        assertThrows<CollageConfigurationZeroRowsOrColumnsException> {
+            CollageConfiguration(PictureOrientation.VERTICAL, 0, 0)
+        }
     }
 }
