@@ -1,5 +1,6 @@
 package models
 
+import exceptions.collageConfiguration.CollageConfigurationNegativeRowsOrColumnsException
 import exceptions.collageConfiguration.CollageConfigurationZeroRowsOrColumnsException
 
 /**
@@ -11,6 +12,7 @@ import exceptions.collageConfiguration.CollageConfigurationZeroRowsOrColumnsExce
  * @property imagesPerPage The number of images to be displayed per page.
  *
  * @throws CollageConfigurationZeroRowsOrColumnsException If `rows` or `columns` is set to zero.
+ * @throws CollageConfigurationNegativeRowsOrColumnsException If `rows` or `columns` is negative.
  *
  * @author Kauê Miziara
  */
@@ -25,6 +27,12 @@ data class CollageConfiguration(
         if (rows == 0 || columns == 0) {
             throw CollageConfigurationZeroRowsOrColumnsException(
                 message = "Zero rows or columns passed for configuration.",
+            )
+        }
+
+        if (rows < 0 || columns < 0) {
+            throw CollageConfigurationNegativeRowsOrColumnsException(
+                message = "Negative rows or columns passed for configuration.",
             )
         }
 
