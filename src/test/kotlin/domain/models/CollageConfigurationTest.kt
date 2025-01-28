@@ -1,6 +1,7 @@
-package models
+package domain.models
 
-import exceptions.collageConfiguration.CollageConfigurationZeroRowsOrColumnsException
+import domain.exceptions.collageConfiguration.CollageConfigurationNegativeRowsOrColumnsException
+import domain.exceptions.collageConfiguration.CollageConfigurationZeroRowsOrColumnsException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -18,7 +19,7 @@ class CollageConfigurationTest {
     }
 
     @Test
-    fun passingZeroRowsOrColumnsShouldThrowAnException() {
+    fun passingZeroRowsOrColumnsShouldThrowCollageConfigurationZeroRowsOrColumnsException() {
         assertThrows<CollageConfigurationZeroRowsOrColumnsException> {
             CollageConfiguration(PictureOrientation.VERTICAL, 0, 5)
         }
@@ -29,6 +30,21 @@ class CollageConfigurationTest {
 
         assertThrows<CollageConfigurationZeroRowsOrColumnsException> {
             CollageConfiguration(PictureOrientation.VERTICAL, 0, 0)
+        }
+    }
+
+    @Test
+    fun passingNegativeRowsOrColumnsShouldThrowCollageConfigurationNegativeRowsOrColumnsException() {
+        assertThrows<CollageConfigurationNegativeRowsOrColumnsException> {
+            CollageConfiguration(PictureOrientation.VERTICAL, -1, 5)
+        }
+
+        assertThrows<CollageConfigurationNegativeRowsOrColumnsException> {
+            CollageConfiguration(PictureOrientation.VERTICAL, 5, -1)
+        }
+
+        assertThrows<CollageConfigurationNegativeRowsOrColumnsException> {
+            CollageConfiguration(PictureOrientation.VERTICAL, -1, -1)
         }
     }
 }

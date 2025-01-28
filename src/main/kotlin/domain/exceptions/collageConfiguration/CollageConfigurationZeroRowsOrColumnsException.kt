@@ -1,4 +1,4 @@
-package exceptions.collageConfiguration
+package domain.exceptions.collageConfiguration
 
 /**
  * Exception thrown when a `CollageConfiguration` has zero rows or columns.
