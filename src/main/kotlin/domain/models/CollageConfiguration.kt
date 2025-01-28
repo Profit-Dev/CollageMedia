@@ -1,7 +1,7 @@
-package models
+package domain.models
 
-import exceptions.collageConfiguration.CollageConfigurationNegativeRowsOrColumnsException
-import exceptions.collageConfiguration.CollageConfigurationZeroRowsOrColumnsException
+import domain.exceptions.collageConfiguration.CollageConfigurationNegativeRowsOrColumnsException
+import domain.exceptions.collageConfiguration.CollageConfigurationZeroRowsOrColumnsException
 
 /**
  * Data class representing the configurations for a collage.

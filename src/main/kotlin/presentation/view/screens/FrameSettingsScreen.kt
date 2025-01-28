@@ -16,7 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import cafe.adriel.voyager.core.screen.Screen
-import models.files.FilePickerFile
+import domain.models.files.FilePickerFile
 import presentation.view.components.filePicker.FilePickerWindow
 import presentation.view.components.settingsScreen.*
 import presentation.view.themes.mainWallpaperColor

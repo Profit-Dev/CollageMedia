@@ -1,4 +1,4 @@
-package exceptions.collageConfiguration
+package domain.exceptions.collageConfiguration
 
 /**
  * Exception thrown when a negative value is provided for rows or columns in the collage configuration.

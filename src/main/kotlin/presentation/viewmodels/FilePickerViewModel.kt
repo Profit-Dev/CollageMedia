@@ -3,7 +3,7 @@ package presentation.viewmodels
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import services.FileService
+import data.services.FileService
 import java.io.File
 
 class FilePickerViewModel(private val fileService: FileService = FileService()) : ViewModel() {

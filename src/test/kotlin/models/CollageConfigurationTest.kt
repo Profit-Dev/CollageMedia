@@ -1,7 +1,9 @@
 package models
 
-import exceptions.collageConfiguration.CollageConfigurationNegativeRowsOrColumnsException
-import exceptions.collageConfiguration.CollageConfigurationZeroRowsOrColumnsException
+import domain.models.CollageConfiguration
+import domain.models.PictureOrientation
+import domain.exceptions.collageConfiguration.CollageConfigurationNegativeRowsOrColumnsException
+import domain.exceptions.collageConfiguration.CollageConfigurationZeroRowsOrColumnsException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
