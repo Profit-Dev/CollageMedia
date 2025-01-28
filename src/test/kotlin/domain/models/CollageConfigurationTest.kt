@@ -1,7 +1,5 @@
-package models
+package domain.models
 
-import domain.models.CollageConfiguration
-import domain.models.PictureOrientation
 import domain.exceptions.collageConfiguration.CollageConfigurationNegativeRowsOrColumnsException
 import domain.exceptions.collageConfiguration.CollageConfigurationZeroRowsOrColumnsException
 import org.junit.jupiter.api.Assertions.assertEquals
