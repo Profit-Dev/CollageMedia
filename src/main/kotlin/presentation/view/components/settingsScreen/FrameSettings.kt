@@ -19,45 +19,53 @@ import presentation.view.themes.whiteColor
 
 @Composable
 fun FramesSettings(modifier: Modifier = Modifier) {
-    Column(
+    BoxWithConstraints(
         modifier
             .fillMaxSize()
             .background(secondaryColor),
     ) {
-        Text(
-            "SETTINGS",
-            fontSize = 50.sp,
-            color = whiteColor,
-            modifier = Modifier
-                .padding(top = 20.dp, bottom = 20.dp)
-                .align(Alignment.CenterHorizontally)
-        )
-        Divider(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(1.dp)
-                .background(whiteColor)
-        )
-        SettingsContainer(Modifier.padding(start = 30.dp, top = 30.dp, end = 30.dp)) {
-            Row(
+        val scaleFactor = (maxWidth / 600.dp).coerceAtMost(1f)
+        val titleSize = (50 * scaleFactor).coerceAtLeast(24f).sp
+        val textSize = (24 * scaleFactor).coerceAtLeast(14f).sp
+        val padding = (20 * scaleFactor).coerceAtLeast(10f).dp
+
+        Column(
+            Modifier.fillMaxSize()
+        ) {
+            Text(
+                "SETTINGS",
+                fontSize = titleSize,
+                color = whiteColor,
                 modifier = Modifier
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-            ) {
-                Text(
-                    text = "Orientation",
-                    color = secondaryColor,
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(start = 30.dp)
-                )
-                OrientationSettingsSwitch(modifier = Modifier.padding(end = 30.dp))
+                    .padding(top = padding, bottom = padding)
+                    .align(Alignment.CenterHorizontally)
+            )
+            Divider(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .background(whiteColor)
+            )
+            SettingsContainer(Modifier.padding(start = padding, top = padding, end = padding)) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Text(
+                        text = "Orientation",
+                        color = secondaryColor,
+                        fontSize = textSize,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(start = padding)
+                    )
+                    OrientationSettingsSwitch(modifier = Modifier.padding(end = padding))
+                }
             }
         }
-
     }
 }
+
 
 @Preview
 @Composable
