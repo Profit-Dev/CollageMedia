@@ -27,6 +27,7 @@ fun FramesSettings(modifier: Modifier = Modifier) {
         val scaleFactor = (maxWidth / 600.dp).coerceAtMost(1f)
         val titleSize = (50 * scaleFactor).coerceAtLeast(24f).sp
         val textSize = (24 * scaleFactor).coerceAtLeast(14f).sp
+        val textSize2 = (30 * scaleFactor).coerceAtLeast(12f).sp
         val padding = (20 * scaleFactor).coerceAtLeast(10f).dp
 
         Column(
@@ -55,11 +56,16 @@ fun FramesSettings(modifier: Modifier = Modifier) {
                     Text(
                         text = "Orientation",
                         color = secondaryColor,
-                        fontSize = textSize,
+                        fontSize = textSize2,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(start = padding)
                     )
-                    OrientationSettingsSwitch(modifier = Modifier.padding(end = padding))
+                    Spacer(modifier = Modifier.width((16.dp * scaleFactor).coerceAtLeast(8.dp)))
+                    OrientationSettingsSwitch(
+                        modifier = modifier
+                            .padding(end = padding)
+                            .size(60.dp*scaleFactor)
+                    )
                 }
             }
         }

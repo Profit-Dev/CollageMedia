@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import presentation.view.themes.mainWallpaperColor
@@ -32,56 +33,62 @@ fun CustomSwitch(
     thumbColor: Color = Color.White,
     checkedTrackColor: Color = secondaryColor,
     uncheckedTrackColor: Color = mainWallpaperColor
-) {
-    val toggleState = remember { mutableStateOf(checked) }
-
-    Box(
-        modifier = modifier
-            .size(width = width.dp, height = height.dp)
-            .clip(RoundedCornerShape(percent = 100))
-            .background(if (toggleState.value) checkedTrackColor else uncheckedTrackColor)
-            .clickable {
-                toggleState.value = !toggleState.value
-                onCheckedChange(toggleState.value)
-            },
-        contentAlignment = Alignment.Center
-    ) {
-        AnimatedVisibility(
-            visible = toggleState.value,
-            enter = fadeIn(),
-            exit = fadeOut()
-        ) {
-            Text(
-                text = "HORIZONTAL",
-                color = Color.White,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(4.dp)
-            )
-        }
-
-        AnimatedVisibility(
-            visible = !toggleState.value,
-            enter = fadeIn(animationSpec = tween(durationMillis = 100)),
-            exit = fadeOut(animationSpec = tween(durationMillis = 100))
-        ) {
-            Text(
-                text = "VERTICAL",
-                color = Color.White,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(4.dp)
-            )
-        }
+)
+{
+    BoxWithConstraints()
+    {
+        val toggleState = remember { mutableStateOf(checked) }
+        val scaleFactor = (maxWidth / 224.dp).coerceAtMost(1.5f)
+        val fontSize = (16 * scaleFactor).coerceAtLeast(10f).sp
 
         Box(
-            modifier = Modifier
-                .size(32.dp)
-                .padding(4.dp)
-                .clip(CircleShape)
-                .background(thumbColor)
-                .align(if (toggleState.value) Alignment.CenterEnd else Alignment.CenterStart)
-        )
+            modifier = modifier
+                .size(width = width.dp, height = height.dp)
+                .clip(RoundedCornerShape(percent = 100))
+                .background(if (toggleState.value) checkedTrackColor else uncheckedTrackColor)
+                .clickable {
+                    toggleState.value = !toggleState.value
+                    onCheckedChange(toggleState.value)
+                },
+            contentAlignment = Alignment.Center
+        ) {
+            AnimatedVisibility(
+                visible = toggleState.value,
+                enter = fadeIn(),
+                exit = fadeOut()
+            ) {
+                Text(
+                    text = "HORIZONTAL",
+                    color = Color.White,
+                    fontSize = fontSize,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(4.dp)
+                )
+            }
+
+            AnimatedVisibility(
+                visible = !toggleState.value,
+                enter = fadeIn(animationSpec = tween(durationMillis = 100)),
+                exit = fadeOut(animationSpec = tween(durationMillis = 100))
+            ) {
+                Text(
+                    text = "VERTICAL",
+                    color = Color.White,
+                    fontSize = fontSize,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(4.dp)
+                )
+            }
+
+            Box(
+                modifier = Modifier
+                    .size((32.dp * scaleFactor).coerceAtLeast(16.dp))
+                    .padding(4.dp)
+                    .clip(CircleShape)
+                    .background(thumbColor)
+                    .align(if (toggleState.value) Alignment.CenterEnd else Alignment.CenterStart)
+            )
+        }
     }
 }
 
