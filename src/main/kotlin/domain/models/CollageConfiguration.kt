@@ -2,6 +2,7 @@ package domain.models
 
 import domain.exceptions.collageConfiguration.CollageConfigurationNegativeRowsOrColumnsException
 import domain.exceptions.collageConfiguration.CollageConfigurationZeroRowsOrColumnsException
+import domain.models.picture.PictureOrientation
 
 /**
  * Data class representing the configurations for a collage.

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import domain.exceptions.collageConfiguration.CollageConfigurationNegativeRowsOrColumnsException
 import domain.exceptions.collageConfiguration.CollageConfigurationZeroRowsOrColumnsException
 import domain.models.CollageConfiguration
-import domain.models.PictureOrientation
+import domain.models.picture.PictureOrientation
 
 class SettingsViewModel : ViewModel() {
     var errorMessage = mutableStateOf<String?>(null)
