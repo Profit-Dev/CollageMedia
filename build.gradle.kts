@@ -29,6 +29,8 @@ dependencies {
 
     implementation("io.coil-kt.coil3:coil-compose:3.0.4")
 
+    implementation("org.apache.pdfbox:pdfbox:3.0.4")
+
     testImplementation(kotlin("test"))
 }
 
