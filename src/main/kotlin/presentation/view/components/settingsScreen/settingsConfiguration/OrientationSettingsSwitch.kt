@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import presentation.view.themes.mainWallpaperColor
@@ -38,12 +37,15 @@ fun CustomSwitch(
     BoxWithConstraints()
     {
         val toggleState = remember { mutableStateOf(checked) }
-        val scaleFactor = (maxWidth / 224.dp).coerceAtMost(1.5f)
-        val fontSize = (16 * scaleFactor).coerceAtLeast(10f).sp
+        val scaleFactor = (maxWidth / 224.dp).coerceIn(0f,1f)
+        val buttonWidth = (width * scaleFactor).coerceAtMost(224f).dp
+        val buttonHeight = (height * scaleFactor).coerceIn(28f, 42f).dp
+        val buttonsize = (32 * scaleFactor).coerceIn(24f,32f).dp
+        val fontSize = (16 * scaleFactor).coerceIn(2f,16f).sp
 
         Box(
             modifier = modifier
-                .size(width = width.dp, height = height.dp)
+                .size(width =  buttonWidth, height = buttonHeight)
                 .clip(RoundedCornerShape(percent = 100))
                 .background(if (toggleState.value) checkedTrackColor else uncheckedTrackColor)
                 .clickable {
@@ -82,7 +84,7 @@ fun CustomSwitch(
 
             Box(
                 modifier = Modifier
-                    .size((32.dp * scaleFactor).coerceAtLeast(16.dp))
+                    .size(buttonsize)
                     .padding(4.dp)
                     .clip(CircleShape)
                     .background(thumbColor)

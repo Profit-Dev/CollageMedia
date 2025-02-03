@@ -26,12 +26,15 @@ fun FramesSettings(modifier: Modifier = Modifier) {
     ) {
         val scaleFactor = (maxWidth / 600.dp).coerceAtMost(1f)
         val titleSize = (50 * scaleFactor).coerceAtLeast(24f).sp
-        val textSize = (24 * scaleFactor).coerceAtLeast(14f).sp
-        val textSize2 = (30 * scaleFactor).coerceAtLeast(12f).sp
+        val textSize = (24 * scaleFactor).coerceIn(14f, 24f).sp
         val padding = (20 * scaleFactor).coerceAtLeast(10f).dp
+        val widthButton = (224 * scaleFactor).coerceAtMost(224f).dp
+        val heightButton = (42 * scaleFactor).coerceIn(32f, 42f).dp
+        val spacerCard = (38 * scaleFactor).coerceAtMost(38f).dp
+        val spacerSwitchButton = (100 * scaleFactor).coerceAtMost(100f).dp
 
         Column(
-            Modifier.fillMaxSize()
+            Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(padding)
         ) {
             Text(
                 "SETTINGS",
@@ -47,24 +50,43 @@ fun FramesSettings(modifier: Modifier = Modifier) {
                     .height(1.dp)
                     .background(whiteColor)
             )
+
             SettingsContainer(Modifier.padding(start = padding, top = padding, end = padding)) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                    horizontalArrangement = Arrangement.Start,
                 ) {
+                    Spacer(modifier = Modifier.width(spacerCard))
                     Text(
                         text = "Orientation",
                         color = secondaryColor,
-                        fontSize = textSize2,
+                        fontSize = textSize,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(start = padding)
                     )
-                    Spacer(modifier = Modifier.width((16.dp * scaleFactor).coerceAtLeast(8.dp)))
+                    Spacer(modifier = Modifier.width(spacerSwitchButton))
                     OrientationSettingsSwitch(
                         modifier = modifier
                             .padding(end = padding)
-                            .size(60.dp*scaleFactor)
+                            .width(widthButton)
+                            .height(heightButton)
+                    )
+                }
+            }
+            SettingsContainer(Modifier.padding(start = padding, top = padding, end = padding)) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start,
+                ) {
+                    Spacer(modifier = Modifier.width(spacerCard))
+                    Text(
+                        text = "Grid",
+                        color = secondaryColor,
+                        fontSize = textSize,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(start = padding)
                     )
                 }
             }
