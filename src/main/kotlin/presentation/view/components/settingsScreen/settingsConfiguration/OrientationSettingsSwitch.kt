@@ -32,20 +32,19 @@ fun CustomSwitch(
     thumbColor: Color = Color.White,
     checkedTrackColor: Color = secondaryColor,
     uncheckedTrackColor: Color = mainWallpaperColor
-)
-{
+) {
     BoxWithConstraints()
     {
         val toggleState = remember { mutableStateOf(checked) }
-        val scaleFactor = (maxWidth / 224.dp).coerceIn(0f,1f)
+        val scaleFactor = (maxWidth / 224.dp).coerceIn(0f, 1f)
         val buttonWidth = (width * scaleFactor).coerceAtMost(224f).dp
         val buttonHeight = (height * scaleFactor).coerceIn(28f, 42f).dp
-        val buttonsize = (32 * scaleFactor).coerceIn(24f,32f).dp
-        val fontSize = (16 * scaleFactor).coerceIn(2f,16f).sp
+        val buttonsize = (32 * scaleFactor).coerceIn(16f, 32f).dp
+        val fontSize = (16 * scaleFactor).coerceIn(10f, 16f).sp
 
         Box(
             modifier = modifier
-                .size(width =  buttonWidth, height = buttonHeight)
+                .size(width = buttonWidth, height = buttonHeight)
                 .clip(RoundedCornerShape(percent = 100))
                 .background(if (toggleState.value) checkedTrackColor else uncheckedTrackColor)
                 .clickable {
