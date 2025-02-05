@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-
 import presentation.view.themes.CollageMediaTheme
 import presentation.view.themes.collageLightBlueColor
 
