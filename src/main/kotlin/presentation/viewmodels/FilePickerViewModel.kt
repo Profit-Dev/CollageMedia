@@ -3,21 +3,21 @@ package presentation.viewmodels
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import extensions.listFilesInDirectory
+import data.services.FileService
 import java.io.File
 
-class FilePickerViewModel : ViewModel() {
+class FilePickerViewModel(private val fileService: FileService = FileService()) : ViewModel() {
     var currentDirectory = mutableStateOf(File(System.getProperty("user.home")))
         private set
 
-    var directoryFiles = mutableStateOf(currentDirectory.value.listFilesInDirectory())
+    var directoryFiles = mutableStateOf(fileService.listFiles(currentDirectory.value))
         private set
 
     val selectedFiles = mutableStateListOf<File>()
 
     fun updateCurrentDirectory(newDirectory: File) {
         currentDirectory.value = newDirectory
-        directoryFiles.value = newDirectory.listFilesInDirectory()
+        directoryFiles.value = fileService.listFiles(newDirectory)
     }
 
     fun toggleFileSelection(file: File) =

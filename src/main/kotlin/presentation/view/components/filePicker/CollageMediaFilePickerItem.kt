@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
-import models.files.FilePickerFile
+import domain.models.files.FilePickerFile
 import presentation.view.themes.collageLightBlueColor
 import presentation.view.themes.mainWallpaperColor
 import presentation.view.themes.secondaryColor

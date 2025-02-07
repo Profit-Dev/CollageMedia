@@ -1,4 +1,4 @@
-package models.files
+package domain.models.files
 
 import java.io.File
 
