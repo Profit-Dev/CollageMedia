@@ -19,14 +19,14 @@ import presentation.view.themes.whiteColor
 @Composable
 fun DoneButton(
     modifier: Modifier = Modifier,
-    width: Int = 255,
+    width: Int = 540,
     height: Int = 70,
     onClick: (() -> Unit)? = null
 ) {
     BoxWithConstraints()
     {
-        val scaleFactor = (maxWidth / 255.dp).coerceIn(0f, 1f)
-        val fontSize = (32 * scaleFactor).coerceIn(8f, 32f).sp
+        val scaleFactor = (maxWidth / 540.dp).coerceIn(0f, 1f)
+        val fontSize = (32 * scaleFactor).coerceIn(24f, 32f).sp
         Button(
             onClick = { onClick?.invoke() },
             modifier = modifier
