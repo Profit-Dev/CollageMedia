@@ -62,8 +62,8 @@ class FrameSettingsScreen : Screen {
                         Box(Modifier.fillMaxSize()) {
                             val files = filePickerViewModel.selectedFiles
                             val lazyGridState = rememberLazyGridState()
-                            val boxWidth = (132 * scaleFactor).coerceAtLeast(80f).dp
-                            val boxHeight = (150 * scaleFactor).coerceAtLeast(100f).dp
+                            val boxWidth = 132.dp
+                            val boxHeight = 150.dp
 
                             Box(modifier = Modifier.fillMaxSize()) {
                                 LazyVerticalGrid(
