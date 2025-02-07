@@ -6,7 +6,8 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.*
+import androidx.compose.material.Divider
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,10 +18,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import domain.models.picture.PictureOrientation
-import presentation.view.components.settingsScreen.settingsConfiguration.*
-import presentation.view.themes.*
+import kotlinx.coroutines.launch
+import presentation.view.components.settingsScreen.settingsConfiguration.DoneButton
+import presentation.view.components.settingsScreen.settingsConfiguration.OrientationSettingsSwitch
+import presentation.view.components.settingsScreen.settingsConfiguration.SettingsContainer
+import presentation.view.themes.CollageMediaTheme
+import presentation.view.themes.collageLightBlueColor
+import presentation.view.themes.secondaryColor
+import presentation.view.themes.whiteColor
 import presentation.viewmodels.FilePickerViewModel
 import presentation.viewmodels.SettingsViewModel
 
@@ -35,6 +43,8 @@ fun FramesSettings(
             .fillMaxSize()
             .background(secondaryColor),
     ) {
+        val coroutineScope = rememberCoroutineScope()
+
         val scaleFactor = (maxWidth / 600.dp).coerceAtMost(1f)
         val titleSize = (50 * scaleFactor).coerceAtLeast(24f).sp
         val textSize = (24 * scaleFactor).coerceIn(14f, 24f).sp
@@ -202,13 +212,15 @@ fun FramesSettings(
                     true -> PictureOrientation.HORIZONTAL
                 }
 
-                onClick(
-                    orientation = orientation,
-                    rows = rowsText.toInt(),
-                    columns = columnsText.toInt(),
-                    filePickerViewModel = filePickerViewModel,
-                    settingsViewModel = settingsViewModel
-                )
+                coroutineScope.launch {
+                    onClick(
+                        orientation = orientation,
+                        rows = rowsText.toInt(),
+                        columns = columnsText.toInt(),
+                        filePickerViewModel = filePickerViewModel,
+                        settingsViewModel = settingsViewModel
+                    )
+                }
             }
         }
     }
@@ -227,7 +239,9 @@ private fun onClick(
         throw e
     }
 
-    settingsViewModel.createPdf(filePickerViewModel.selectedFiles)
+    settingsViewModel.viewModelScope.launch {
+        settingsViewModel.createPdf(filePickerViewModel.selectedFiles)
+    }
 }
 
 @Composable

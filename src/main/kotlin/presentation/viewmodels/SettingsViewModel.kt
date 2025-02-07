@@ -17,7 +17,7 @@ class SettingsViewModel(
 
     private var collageConfiguration: CollageConfiguration? = null
 
-    fun createPdf(files: List<File>) {
+    suspend fun createPdf(files: List<File>) {
         pdfService.createPdf(files, collageConfiguration!!)
     }
 

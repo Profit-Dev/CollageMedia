@@ -3,6 +3,8 @@ package data.services
 import domain.models.CollageConfiguration
 import domain.models.picture.PdfPictureProperties
 import domain.models.picture.PictureOrientation
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.pdmodel.PDPage
 import org.apache.pdfbox.pdmodel.PDPageContentStream
@@ -26,7 +28,7 @@ class PdfService {
      * @param config The collage configuration specifying layout details.
      * @throws IOException If an error occurs while creating the PDF.
      */
-    fun createPdf(images: List<File>, config: CollageConfiguration) {
+    suspend fun createPdf(images: List<File>, config: CollageConfiguration) = withContext(Dispatchers.IO) {
         val a4Width = PDRectangle.A4.width
         val a4Height = PDRectangle.A4.height
 
@@ -45,7 +47,7 @@ class PdfService {
                 close()
             }
         } catch (e: IOException) {
-            throw IOException("An error occurred while creating PDF")
+            throw IOException("An error occurred while creating PDF: ${e.message}")
         }
     }
 
@@ -59,13 +61,13 @@ class PdfService {
      * @param images The list of images to be added to this page.
      * @throws IOException If an error occurs while writing to the PDF.
      */
-    private fun createPage(
+    private suspend fun createPage(
         pageWidth: Float,
         pageHeight: Float,
         document: PDDocument,
         config: CollageConfiguration,
         images: List<File>
-    ) {
+    ) = withContext(Dispatchers.IO) {
         var page = PDPage(PDRectangle(pageWidth, pageHeight))
         document.addPage(page)
 
