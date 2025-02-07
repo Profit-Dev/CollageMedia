@@ -11,6 +11,7 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject
 import org.apache.pdfbox.util.Matrix
 import java.io.File
 import java.io.IOException
+import java.time.LocalDateTime
 
 /**
  * A service class responsible for generating a PDF document from a list of images.
@@ -39,7 +40,8 @@ class PdfService {
                 images.chunked(config.imagesPerPage).forEach { pageImages ->
                     createPage(pageWidth, pageHeight, this, config, pageImages)
                 }
-                save(System.getProperty("user.dir"))
+                val userDir = System.getProperty("user.dir")
+                save("$userDir/${LocalDateTime.now()}.pdf")
                 close()
             }
         } catch (e: IOException) {
