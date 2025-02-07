@@ -13,13 +13,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import domain.models.picture.PictureOrientation
 import presentation.view.components.settingsScreen.settingsConfiguration.*
 import presentation.view.themes.*
+import presentation.viewmodels.FilePickerViewModel
+import presentation.viewmodels.SettingsViewModel
 
 @Composable
-fun FramesSettings(modifier: Modifier = Modifier) {
+fun FramesSettings(
+    modifier: Modifier = Modifier,
+    filePickerViewModel: FilePickerViewModel = viewModel(),
+    settingsViewModel: SettingsViewModel = viewModel(),
+) {
     BoxWithConstraints(
         modifier
             .fillMaxSize()
@@ -34,11 +44,14 @@ fun FramesSettings(modifier: Modifier = Modifier) {
         val heightOrientationSwitchButton = (42 * scaleFactor).coerceIn(32f, 42f).dp
         val spacerOrientationSwitchButton = (80 * scaleFactor).coerceAtMost(100f).dp
         val spacerGridRowsColumns = (179 * scaleFactor).coerceAtMost(179f).dp
-        val spacerRowsXColumns = (16 * scaleFactor).coerceAtMost(26f).dp
+
+        var checked = remember { mutableStateOf(true) }
+        var rowsText by remember { mutableStateOf("") }
+        var columnsText by remember { mutableStateOf("") }
 
         Column(
-            Modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween
-
+            Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
                 "SETTINGS",
@@ -71,6 +84,7 @@ fun FramesSettings(modifier: Modifier = Modifier) {
                     )
                     Spacer(modifier = Modifier.width(spacerOrientationSwitchButton))
                     OrientationSettingsSwitch(
+                        checked = checked,
                         modifier = modifier
                             .padding(end = padding)
                             .width(widthOrientationSwitchButton)
@@ -78,6 +92,7 @@ fun FramesSettings(modifier: Modifier = Modifier) {
                     )
                 }
             }
+
             SettingsContainer(Modifier.padding(start = padding, top = padding, end = padding)) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -100,16 +115,15 @@ fun FramesSettings(modifier: Modifier = Modifier) {
                             .background(collageLightBlueColor),
                         contentAlignment = Alignment.Center
                     ) {
-                        var text by remember { mutableStateOf("") }
                         BasicTextField(
-                            value = text,
-                            onValueChange = { text = it },
+                            value = rowsText,
+                            onValueChange = { rowsText = it },
                             singleLine = true,
                             textStyle = TextStyle(
                                 color = secondaryColor,
                                 fontSize = textSizeRowColumn * scaleFactor,
                                 fontWeight = FontWeight.Medium,
-                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                                textAlign = TextAlign.Center
                             ),
                             modifier = Modifier
                                 .fillMaxSize()
@@ -120,13 +134,13 @@ fun FramesSettings(modifier: Modifier = Modifier) {
                                         .fillMaxSize(),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    if (text.isEmpty()) {
+                                    if (rowsText.isEmpty()) {
                                         Text(
                                             text = "Row",
                                             color = secondaryColor.copy(alpha = 0.5f),
                                             fontSize = textSizeRowColumn * scaleFactor,
                                             fontWeight = FontWeight.Medium,
-                                            textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                                            textAlign = TextAlign.Center
                                         )
                                     }
                                     innerTextField()
@@ -135,13 +149,9 @@ fun FramesSettings(modifier: Modifier = Modifier) {
 
                         )
                     }
-                    Spacer(modifier = Modifier.width(spacerRowsXColumns))
-                    Text(
-                        text = "x",
-                        color = secondaryColor,
-                        fontSize = textSize
-                    )
-                    Spacer(modifier = Modifier.width(spacerRowsXColumns))
+
+                    RowsXColumnsSpacer(scaleFactor, textSize)
+
                     Box(
                         modifier = Modifier
                             .size(90.dp * scaleFactor, 50.dp * scaleFactor)
@@ -149,16 +159,15 @@ fun FramesSettings(modifier: Modifier = Modifier) {
                             .background(collageLightBlueColor),
                         contentAlignment = Alignment.Center
                     ) {
-                        var text by remember { mutableStateOf("") }
                         BasicTextField(
-                            value = text,
-                            onValueChange = { text = it },
+                            value = columnsText,
+                            onValueChange = { columnsText = it },
                             singleLine = true,
                             textStyle = TextStyle(
                                 color = secondaryColor,
                                 fontSize = textSizeRowColumn * scaleFactor,
                                 fontWeight = FontWeight.Medium,
-                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                                textAlign = TextAlign.Center
                             ),
                             modifier = Modifier
                                 .fillMaxSize()
@@ -169,13 +178,13 @@ fun FramesSettings(modifier: Modifier = Modifier) {
                                         .fillMaxSize(),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    if (text.isEmpty()) {
+                                    if (columnsText.isEmpty()) {
                                         Text(
                                             text = "Column",
                                             color = secondaryColor.copy(alpha = 0.5f),
                                             fontSize = textSizeRowColumn * scaleFactor,
                                             fontWeight = FontWeight.Medium,
-                                            textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                                            textAlign = TextAlign.Center
                                         )
                                     }
                                     innerTextField()
@@ -185,10 +194,53 @@ fun FramesSettings(modifier: Modifier = Modifier) {
                     }
                 }
             }
+
             Spacer(modifier = Modifier.weight(1f))
-            DoneButton (modifier = Modifier.padding(start = padding, bottom = padding, end= padding)){ }
+            DoneButton(modifier = Modifier.padding(start = padding, bottom = padding, end = padding)) {
+                val orientation = when (checked.value) {
+                    false -> PictureOrientation.VERTICAL
+                    true -> PictureOrientation.HORIZONTAL
+                }
+
+                onClick(
+                    orientation = orientation,
+                    rows = rowsText.toInt(),
+                    columns = columnsText.toInt(),
+                    filePickerViewModel = filePickerViewModel,
+                    settingsViewModel = settingsViewModel
+                )
+            }
         }
     }
+}
+
+private fun onClick(
+    orientation: PictureOrientation,
+    rows: Int,
+    columns: Int,
+    filePickerViewModel: FilePickerViewModel,
+    settingsViewModel: SettingsViewModel,
+) {
+    try {
+        settingsViewModel.setupConfiguration(orientation, rows, columns)
+    } catch (e: Exception) {
+        throw e
+    }
+
+    settingsViewModel.createPdf(filePickerViewModel.selectedFiles)
+}
+
+@Composable
+private fun RowsXColumnsSpacer(scaleFactor: Float, textSize: TextUnit) {
+    val spacerRowsXColumns = (16 * scaleFactor).coerceAtMost(26f).dp
+
+    Spacer(modifier = Modifier.width(spacerRowsXColumns))
+    Text(
+        text = "x",
+        color = secondaryColor,
+        fontSize = textSize
+    )
+    Spacer(modifier = Modifier.width(spacerRowsXColumns))
 }
 
 @Preview

@@ -23,7 +23,24 @@ import presentation.view.themes.mainWallpaperColor
 import presentation.view.themes.secondaryColor
 
 @Composable
-fun CustomSwitch(
+fun OrientationSettingsSwitch(
+    checked: MutableState<Boolean>,
+    modifier: Modifier = Modifier
+) {
+    CustomSwitch(
+        checked = checked.value,
+        onCheckedChange = { checked.value = it },
+        width = 224,
+        height = 42,
+        thumbColor = Color.White,
+        checkedTrackColor = secondaryColor,
+        uncheckedTrackColor = mainWallpaperColor,
+        modifier = modifier
+    )
+}
+
+@Composable
+private fun CustomSwitch(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
@@ -91,24 +108,8 @@ fun CustomSwitch(
     }
 }
 
-@Composable
-fun OrientationSettingsSwitch(modifier: Modifier = Modifier) {
-    var checked by remember { mutableStateOf(true) }
-
-    CustomSwitch(
-        checked = checked,
-        onCheckedChange = { checked = it },
-        width = 224,
-        height = 42,
-        thumbColor = Color.White,
-        checkedTrackColor = secondaryColor,
-        uncheckedTrackColor = mainWallpaperColor,
-        modifier = modifier
-    )
-}
-
 @Preview
 @Composable
 fun PreviewOrientationSwitch() {
-    OrientationSettingsSwitch()
+    OrientationSettingsSwitch(mutableStateOf(true))
 }
