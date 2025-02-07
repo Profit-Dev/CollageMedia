@@ -1,9 +1,7 @@
 package presentation.view.components.settingsScreen
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
@@ -19,9 +17,7 @@ import presentation.view.themes.mainWallpaperColor
 fun AddFramesButton(modifier: Modifier = Modifier, onClick: (() -> Unit)? = null) {
     FloatingActionButton(
         onClick = { onClick?.invoke() },
-        modifier = modifier
-            .height(80.dp)
-            .width(80.dp),
+        modifier = modifier,
         shape = CircleShape,
         backgroundColor = mainWallpaperColor,
         contentColor = Color.White
